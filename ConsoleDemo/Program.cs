@@ -24,6 +24,8 @@ namespace ConsoleDemo
             //
             OrderSettlement.DoSettlement();
 
+            DelegateUsage();
+
             //任务调度实例
             JobManager.Initialize(new JobFactory());
             
@@ -68,6 +70,18 @@ namespace ConsoleDemo
             Console.WriteLine(normal.GetBusinessName());
             var fullReturn = provider.GetService<FullReturn>();
             Console.WriteLine(fullReturn.GetBusinessName());
+        }
+
+        static void DelegateUsage()
+        {
+            Cat cat = new Cat("Tom");
+            Mouse mouse1 = new Mouse("MiQi");
+            Mouse mouse2 = new Mouse("MiNi");
+
+            cat.CatShout += new Cat.CatShoutEventHandler(mouse1.Run);
+            cat.CatShout += new Cat.CatShoutEventHandler(mouse2.Run);
+
+            cat.Shout();
         }
     }
 }
